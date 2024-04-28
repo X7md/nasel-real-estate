@@ -7,45 +7,91 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
+		<meta name="description" content="" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href="/logo-nasel.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+		<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+		<title>{(title) ? title + " | شركة نصل العقارية" : "شركة نصل العقارية"}</title>
+		<style is:global>
+			@tailwind base;
+			@tailwind components;
+			@tailwind utilities;
+			:root {
+				--gradient-9: conic-gradient(from .5turn at bottom center, rgb(220, 220, 220), white);
+			}
+			html {
+				background-image: var(--gradient-9);
+			}
+			html, body {
+				font-family: "Tajawal", sans-serif;
+			}
+		</style>
 	</head>
-	<body>
+	<body class="flex flex-col">
+		<!-- <header> -->
+			<nav class="bg-white w-full static text-black min-h-12 py-3">
+				<div class="flex  gap-3 items-center lg:justify-normal md:justify-normal justify-between">
+					<a href="/">
+						<img class="m-2" src="logo-nasel.svg" alt="logo">
+					</a>
+					<div class="px-3 hidden lg:flex md:flex">
+						<ul class="flex gap-3.5">
+							<li class="font-medium"><a href="/projects">المشاريع</a></li>
+							<li class="font-medium"><a href="/#">من نحن</a></li>
+							<li class="font-medium"><a href="/#">تواصل معنا</a></li>
+						</ul>
+					</div>
+					<button class="m-3 block lg:hidden md:hidden">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-6 h-6">
+							<path fill-rule="evenodd" d="M2 3.75A.75.75 0 0 1 2.75 3h10.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 3.75ZM2 8a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 8Zm0 4.25a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+						</svg>						  
+					</button>
+				</div>
+			</nav>
+		<!-- </header> -->
 		<slot />
+		<footer class="bg-black min-h-4 py-3 text-white">
+			<section class="grid lg:grid-cols-3">
+				<div class="flex gap-3 flex-col lg:items-start items-center justify-start m-4">
+					<img class="invert h-12" src="logo-nasel.svg" alt="logo">
+					<span class="text-xs">الرياض - طريق الملك عبدالله - حي القدس</span>
+				</div>
+				<div class="flex gap-1 flex-col lg:items-start items-center m-4">
+					<h3 class="font-bold">تواصل معنا:</h3>
+					<span class="text-base" dir="ltr">
+						<a href="tel:+966537467029">053 746 7029</a>
+					</span>
+					<span class="text-base" dir="ltr">
+						<a href="mailto:info@nasel.info">info@nasel.info</a>
+					</span>
+				</div>
+				<div class="flex gap-1 flex-col lg:items-start items-center justify-center m-4">
+					<span class="text-sm">
+						<span>
+							©
+						</span>
+						شركة نصل العقارية
+					</span>
+					<span class="text-sm">
+						س.ت: 1011143272
+					</span>
+				</div>
+			</section>
+		</footer>
+		<script>
+			//@ts-expect-error
+			import AOS from "simple-aos";
+			AOS.init({
+				once: true,
+				mirror: true
+			});
+		</script>			
 	</body>
 </html>
-<style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-		background-size: 224px;
-	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
-	}
-</style>
