@@ -1,3 +1,6 @@
+/src/pages/*.ts
+schema.sql
+
 # build output
 dist/
 

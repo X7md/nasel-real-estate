@@ -83,3 +83,9 @@ pages_build_output_dir = "./dist"
 # [[env.production.kv_namespaces]]
 # binding = "MY_KV_NAMESPACE"
 # id = "<PRODUCTION_NAMESPACE_ID>"
+
+[[d1_databases]]
+binding = "DB" # i.e. available in your Worker on env.DB
+database_name = "real-estate-db"
+database_id = "9b1cdb53-4fa5-4552-88f8-893e05170a21"
+preview_database_id = "DB"

@@ -1,18 +1,28 @@
 ---
-interface Props {
-	title: string;
-}
 
-const { title } = Astro.props;
+type Props = {
+	title?: string;
+	description?: string;
+}
+const { title, description } : Props = Astro.props;
+import { Navbar } from "@/components/Navbar";
+import { Toaster } from "@/components/ui/sonner"
 ---
 
 <!doctype html>
 <html lang="ar" dir="rtl">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="" />
+		<meta name="description" content={description ? description : "شركة سعودية رائدة في تقديم حلول سكنية مبتكرة، تهدف إلى تلبية احتياجات عملائها وتحسين جودة حياتهم."} />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/logo-nasel.svg" />
+		<meta property="og:description" content={description ? description : "شركة سعودية رائدة في تقديم حلول سكنية مبتكرة، تهدف إلى تلبية احتياجات عملائها وتحسين جودة حياتهم."}  />
+		<meta property="og:image" content="https://pub-e630f922b0434823ab2e64a02d626d76.r2.dev/projects/assets/full-width.jpg" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image" content="https://pub-e630f922b0434823ab2e64a02d626d76.r2.dev/projects/assets/1x1.jpg" />
+		<meta property="og:image:width" content="200" />
+		<meta property="og:image:height" content="200" />
 		<meta name="generator" content={Astro.generator} />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,40 +41,65 @@ const { title } = Astro.props;
 			}
 			html, body {
 				font-family: "Tajawal", sans-serif;
+				/* scroll-behavior: smooth; */
 			}
 		</style>
 	</head>
 	<body class="flex flex-col">
 		<!-- <header> -->
-			<nav class="bg-white w-full static text-black min-h-12 py-3">
-				<div class="flex  gap-3 items-center lg:justify-normal md:justify-normal justify-between">
-					<a href="/">
-						<img class="m-2" src="logo-nasel.svg" alt="logo">
-					</a>
-					<div class="px-3 hidden lg:flex md:flex">
-						<ul class="flex gap-3.5">
-							<li class="font-medium"><a href="/projects">المشاريع</a></li>
-							<li class="font-medium"><a href="/#">من نحن</a></li>
-							<li class="font-medium"><a href="/#">تواصل معنا</a></li>
-						</ul>
-					</div>
-					<button class="m-3 block lg:hidden md:hidden">
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-6 h-6">
-							<path fill-rule="evenodd" d="M2 3.75A.75.75 0 0 1 2.75 3h10.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 3.75ZM2 8a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 8Zm0 4.25a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
-						</svg>						  
-					</button>
-				</div>
-			</nav>
+			<Navbar client:load />
 		<!-- </header> -->
 		<slot />
-		<footer class="bg-black min-h-4 py-3 text-white">
+		<footer class="bg-black min-h-4 py-3 text-white mt-4">
 			<section class="grid lg:grid-cols-3">
-				<div class="flex gap-3 flex-col lg:items-start items-center justify-start m-4">
-					<img class="invert h-12" src="logo-nasel.svg" alt="logo">
-					<span class="text-xs">الرياض - طريق الملك عبدالله - حي القدس</span>
+				<div class="flex gap-1 flex-col lg:items-start items-center justify-center m-4">
+					<div>
+						<img class="invert h-12" src="logo-nasel.svg" alt="logo">
+						<span class="text-xs">الرياض - طريق الملك عبدالله - حي القدس</span>
+					</div>
 				</div>
-				<div class="flex gap-1 flex-col lg:items-start items-center m-4">
+				<div class="flex gap-1 flex-col lg:items-start items-center m-4" id="get-touch">
 					<h3 class="font-bold">تواصل معنا:</h3>
+					<ul class="flex justify-center gap-3 py-3">
+						<li>
+							<a href="https://www.instagram.com/naselksa">
+								<svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24">
+									<path fill="currentColor" d="M12.002 21.041c-2.46 0-2.75-.013-3.71-.055a6.583 6.583 0 0 1-2.185-.45a4.619 4.619 0 0 1-2.63-2.631a6.591 6.591 0 0 1-.419-2.187c-.056-.958-.056-1.272-.056-3.713c0-2.467.013-2.755.056-3.71a6.59 6.59 0 0 1 .419-2.184A4.61 4.61 0 0 1 6.11 3.479a6.533 6.533 0 0 1 2.184-.42c.955-.054 1.269-.054 3.708-.054c2.48 0 2.765.013 3.71.054c.748.014 1.49.156 2.19.42a4.615 4.615 0 0 1 2.633 2.632c.267.71.41 1.46.421 2.217c.056.958.056 1.271.056 3.711s-.014 2.76-.056 3.707a6.603 6.603 0 0 1-.42 2.189a4.624 4.624 0 0 1-2.634 2.632c-.7.262-1.439.404-2.186.419c-.955.055-1.268.055-3.714.055Zm-.034-16.453c-2.446 0-2.7.012-3.655.055a4.99 4.99 0 0 0-1.67.311a2.99 2.99 0 0 0-1.718 1.712c-.2.54-.305 1.111-.311 1.687c-.053.969-.053 1.223-.053 3.652c0 2.4.009 2.691.053 3.654c.009.57.114 1.135.311 1.67c.306.787.93 1.409 1.719 1.711a4.92 4.92 0 0 0 1.669.311c.968.056 1.223.056 3.655.056c2.453 0 2.707-.012 3.654-.056a4.962 4.962 0 0 0 1.67-.311a3 3 0 0 0 1.71-1.709c.2-.54.305-1.112.311-1.688h.011c.043-.956.043-1.211.043-3.654c0-2.443-.011-2.7-.054-3.655a5.06 5.06 0 0 0-.311-1.668a3 3 0 0 0-1.71-1.712a4.94 4.94 0 0 0-1.67-.311c-.967-.055-1.22-.055-3.654-.055Zm.034 12.036A4.623 4.623 0 1 1 16.622 12a4.63 4.63 0 0 1-4.62 4.624Zm0-7.626a3 3 0 1 0 3 3a3.007 3.007 0 0 0-3-3Zm4.8-.713a1.078 1.078 0 1 1 .008-2.156a1.078 1.078 0 0 1-.008 2.156Z"/>
+								</svg>
+							</a>
+						</li>
+						<li>
+							<a href="https://www.x.com/naselKSA">
+								<svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 256 256">
+									<path fill="currentColor" d="m214.75 211.71l-62.6-98.38l61.77-67.95a8 8 0 0 0-11.84-10.76l-58.84 64.72l-40.49-63.63A8 8 0 0 0 96 32H48a8 8 0 0 0-6.75 12.3l62.6 98.37l-61.77 68a8 8 0 1 0 11.84 10.76l58.84-64.72l40.49 63.63A8 8 0 0 0 160 224h48a8 8 0 0 0 6.75-12.29M164.39 208L62.57 48h29l101.86 160Z"/>
+								</svg>
+							</a>
+						</li>
+						<li>
+							<a href="https://www.linkedin.com/company/naselksa/">
+								<svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24">
+									<path d="M20 3H4a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM8.339 18.337H5.667v-8.59h2.672v8.59zM7.003 8.574a1.548 1.548 0 1 1 0-3.096a1.548 1.548 0 0 1 0 3.096zm11.335 9.763h-2.669V14.16c0-.996-.018-2.277-1.388-2.277c-1.39 0-1.601 1.086-1.601 2.207v4.248h-2.667v-8.59h2.56v1.174h.037c.355-.675 1.227-1.387 2.524-1.387c2.704 0 3.203 1.778 3.203 4.092v4.71z" fill="currentColor"/>
+								</svg>
+							</a>
+						</li>
+						<li>
+							<a href="https://www.tiktok.com/@naselksa">
+								<svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24">
+									<path fill="currentColor" d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6c0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64c0 3.33 2.76 5.7 5.69 5.7c3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48"/>
+								</svg>
+							</a>
+						</li>
+						<li>
+							<a href="https://www.snapchat.com/add/naselksa">
+								<svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 256 256">
+									<g fill="currentColor">
+										<path d="M240 183.9c-9.25 8.69-31.45 4.61-42.66 10.78c-11 6.07-17.07 25.56-29.57 28.76c-12.08 3.09-26.72-7.56-39.77-7.56s-27.69 10.65-39.77 7.56c-12.5-3.2-18.53-22.69-29.57-28.76c-11.21-6.17-33.41-2.09-42.66-10.78c0 0 56-20 56-103.93a56 56 0 0 1 112 0c0 83.89 56 103.93 56 103.93" opacity=".2"/>
+										<path d="M247.83 182.28a8 8 0 0 0-5.13-5.9c-.39-.14-28.95-10.88-43-49.23l19.3-7.72a8 8 0 1 0-6-14.86l-17.82 7.13A149 149 0 0 1 192 80a64 64 0 0 0-128 0a151.24 151.24 0 0 1-3.18 31.75L43 104.57a8 8 0 1 0-6 14.86l19.37 7.75a94 94 0 0 1-17.74 30.2c-12.52 14.14-25.27 19-25.36 19a8 8 0 0 0-2.77 13.36c7.1 6.67 17.67 7.71 27.89 8.72c6.3.62 12.82 1.27 16.38 3.23c3.37 1.86 6.85 6.62 10.21 11.22c5.4 7.41 11.53 15.8 21.24 18.28c9.07 2.33 18.35-.83 26.54-3.62c5.55-1.89 10.8-3.68 15.21-3.68s9.66 1.79 15.21 3.68c6.2 2.11 13 4.43 19.9 4.43a26.35 26.35 0 0 0 6.64-.81c9.7-2.48 15.83-10.87 21.23-18.28c3.36-4.6 6.84-9.36 10.21-11.22c3.56-2 10.08-2.61 16.39-3.23c10.21-1 20.78-2.05 27.88-8.72a8 8 0 0 0 2.4-7.46m-31.82.26c-7.91.78-16.08 1.59-22.53 5.13s-11 9.79-15.41 15.81c-4 5.48-8.15 11.16-12.28 12.21c-4.46 1.15-10.76-1-17.42-3.27s-13.31-4.53-20.37-4.53s-13.83 2.3-20.37 4.53s-13 4.42-17.42 3.27c-4.13-1.05-8.27-6.73-12.28-12.21c-4.39-6-8.93-12.24-15.41-15.81S47.9 183.32 40 182.54c-1.56-.15-3.15-.31-4.74-.49a97.34 97.34 0 0 0 14.69-13.29c8.37-9.27 17.72-23.23 23.74-43.13l.06-.13a8.63 8.63 0 0 0 .46-1.61A158.47 158.47 0 0 0 80 80a48 48 0 0 1 96 0a158.42 158.42 0 0 0 5.8 43.92a8.63 8.63 0 0 0 .46 1.61l.06.13c6 19.9 15.37 33.86 23.74 43.13a97.34 97.34 0 0 0 14.69 13.29c-1.59.15-3.18.31-4.75.46Z"/>
+									</g>
+								</svg>
+							</a>
+						</li>
+					</ul>
 					<span class="text-base" dir="ltr">
 						<a href="tel:+966537467029">053 746 7029</a>
 					</span>
@@ -85,13 +120,17 @@ const { title } = Astro.props;
 				</div>
 			</section>
 		</footer>
+		<Toaster client:idle dir="rtl" />
 		<script>
 			//@ts-expect-error
 			import AOS from "simple-aos";
+			//@ts-expect-error
+			window.noZensmooth = false;
 			AOS.init({
 				once: true,
 				mirror: true
 			});
-		</script>			
+		</script>	
+		<script is:inline src="https://cdn.jsdelivr.net/npm/zenscroll@4.0.2/zenscroll-min.min.js"></script>		
 	</body>
 </html>

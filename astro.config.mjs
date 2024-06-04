@@ -10,8 +10,14 @@ export default defineConfig({
   adapter: cloudflare({
     platformProxy: {
       enabled: true
-    }
-    // mode: "directory"
+    },
+    mode: "local",
+    type: "pages",
+    bindings: {
+      DB: {
+        type: "d1",
+      },
+    },
   }),
   integrations: [tailwind({
       applyBaseStyles: false,
